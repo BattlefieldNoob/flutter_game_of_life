@@ -10,6 +10,8 @@ name: Deploy to Github Pages on merge
 jobs:
   build_and_deploy:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     container: 
       image: "cirrusci/flutter:3.7.5"
     steps:
