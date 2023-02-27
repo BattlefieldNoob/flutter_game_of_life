@@ -1,4 +1,3 @@
-// Add Widget with controls for game grid size and update interval
 import 'package:flutter/material.dart';
 import 'package:flutter_game_of_life/models/game_params.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -7,15 +6,18 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'game_params_widget.g.dart';
 
+const defaultGridSize = 60;
+const defaultUpdateInterval = 0.125;
+
 @riverpod
 class GameParamsNotifier extends _$GameParamsNotifier {
   @override
   GameParams build() {
-    return GameParams(60, 0.125);
+    return GameParams(defaultGridSize, defaultUpdateInterval);
   }
 
-  void updateGameParams(GameParams updated) {
-    state = updated;
+  void updateParams(int gridSize, double updateInterval) {
+    state = GameParams(gridSize, updateInterval);
   }
 }
 
@@ -25,8 +27,8 @@ class GameParamsWidget extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     // Add a column with controls for game grid size and update interval
-    final gridSize = useState(60);
-    final updateInterval = useState(0.125);
+    final gridSize = useState(defaultGridSize);
+    final updateInterval = useState(defaultUpdateInterval);
 
     return Material(
         child: Column(
@@ -46,8 +48,9 @@ class GameParamsWidget extends HookConsumerWidget {
           onChanged: (value) => updateInterval.value = value,
         ),
         MaterialButton(
-          onPressed: () => ref.read(gameParamsNotifierProvider.notifier).state =
-              GameParams(gridSize.value, updateInterval.value),
+          onPressed: () => ref
+              .read(gameParamsNotifierProvider.notifier)
+              .updateParams(gridSize.value, updateInterval.value),
           child: const Text('Apply'),
         )
       ],
