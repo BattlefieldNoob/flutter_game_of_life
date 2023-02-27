@@ -1,3 +1,4 @@
+import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flame/game.dart';
 import 'package:flutter_game_of_life/models/grid.dart';
@@ -14,6 +15,8 @@ class GameOfLife extends FlameGame with TapDetector {
 
     addAll(gameGrid.blockGrid);
     addAll(gameGrid.borderGrid);
+
+    add(FpsTextComponent());
   }
 
   // enable a block on tap
