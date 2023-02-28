@@ -6,8 +6,8 @@ import 'package:flutter_game_of_life/models/grid.dart';
 class GameOfLife extends FlameGame with TapDetector {
   final Grid gameGrid;
 
-  GameOfLife(int gridSize, double updateInterval)
-      : gameGrid = Grid(gridSize, gridSize, updateInterval);
+  GameOfLife(int gridSize, double updateInterval, int seed)
+      : gameGrid = Grid(gridSize, gridSize, updateInterval, seed);
 
   @override
   Future<void> onLoad() async {

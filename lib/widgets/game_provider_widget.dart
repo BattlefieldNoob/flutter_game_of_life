@@ -10,7 +10,8 @@ part 'game_provider_widget.g.dart';
 @riverpod
 GameOfLife gameOfLife(GameOfLifeRef ref) {
   final gameParams = ref.watch(gameParamsNotifierProvider);
-  return GameOfLife(gameParams.gridSize, gameParams.updateInterval);
+  return GameOfLife(
+      gameParams.gridSize, gameParams.updateInterval, gameParams.seed);
 }
 
 class GameProviderWidget extends ConsumerWidget {

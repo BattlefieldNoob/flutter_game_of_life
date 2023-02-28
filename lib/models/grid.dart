@@ -14,8 +14,9 @@ class Grid {
 
   final List<Border> borderGrid;
 
-  Grid(this.height, this.width, this.blockUpdateInterval)
-      : blockGrid = _initializeGameGrid(width, height, blockUpdateInterval),
+  Grid(this.height, this.width, this.blockUpdateInterval, int seed)
+      : blockGrid =
+            _initializeGameGrid(width, height, blockUpdateInterval, seed),
         borderGrid = _initializeBorderGrid(width, height);
 
   //read block by grid position (x,y)
@@ -73,7 +74,9 @@ class Grid {
     int width,
     int height,
     double blockUpdateInterval,
+    int seed,
   ) {
+    final random = Random(seed);
     final blocksXOffset = 400 / width;
     final blocksYOffset = 400 / height;
     final grid = List.generate(
@@ -85,7 +88,7 @@ class Grid {
             ..position = Vector2(blocksXOffset + (x * blocksXOffset),
                 blocksYOffset + (y * blocksYOffset))
             ..size = Vector2(blocksXOffset, blocksYOffset)
-            ..setEnabled(Random().nextBool());
+            ..setEnabled(random.nextBool());
         },
       ),
     ).expand((e) => e).toList();
